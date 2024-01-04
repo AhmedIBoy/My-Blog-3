@@ -1,23 +1,17 @@
-package com.myblog3.demo.myblog.entity;
+package com.myblog3.demo.myblog.paylod;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Entity
-@Table(name ="New-posts")
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class PostDto {
 
+    private long id;
     private String tittle;
     private String description;
     private String comments;
