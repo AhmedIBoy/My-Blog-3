@@ -5,12 +5,12 @@ import com.myblog3.demo.myblog.exception.ResourceNotFoundException;
 import com.myblog3.demo.myblog.paylod.PostDto;
 import com.myblog3.demo.myblog.repositories.PostRepository;
 import com.myblog3.demo.myblog.service.PostService;
-import org.hibernate.ResourceClosedException;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,8 +38,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPost() {
-        List<Post> allPost = postRepo.findAll();
+    public List<PostDto> getAllPost(int pageNo, int pageSize) {
+       Pageable pageable = PageRequest.of(pageNo,pageSize);
+        Page<Post> pagePost = postRepo.findAll(pageable);
+        List<Post> allPost = pagePost.getContent();
         List<PostDto> dto = allPost.stream().map(this::postToPostDto).collect(Collectors.toList());
         return dto;
     }
